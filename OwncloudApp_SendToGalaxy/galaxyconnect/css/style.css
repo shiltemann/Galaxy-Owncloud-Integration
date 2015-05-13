@@ -1,0 +1,13 @@
+#dropdown {
+    background:none repeat scroll 0 0 #EEE;
+    border-bottom-left-radius:1em;
+    border-bottom-right-radius:1em;
+    box-shadow:0 1px 1px #777777;
+    display:block;
+    margin-right:7em;
+    padding:1em;
+    position:absolute;
+    right:0;
+    width:320px;
+    z-index:100;
+}

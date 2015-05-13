@@ -1,0 +1,39 @@
+<tool id="owncloud_send" name="Send file to owncloud" version="1.11">
+	<description>send dataset to your Owncloud account on this server</description> 
+
+	<command>
+		curl -X PUT "https://bioinf-galaxian.erasmusmc.nl/owncloud/remote.php/webdav/$filename" -u $__user_email__:$mypass --data-binary @"$inputfile" 
+	</command>
+
+
+	<inputs>
+		<!-- file from history -->
+		<param name="inputfile" type="data" label="Select input file" help="Choose file to send to Owncloud"/>
+		<param name="filename" type="text"   size="100" label="Filename (and optionally path) on Owncloud" help="Choose a name for the file. You can also specify a directory within your owncloud account: some/path/to/filename.txt (directories must exist)  CAUTION: tool will override existing files, so choose filename with care!" >
+			<validator type="empty_field" />
+		</param>
+		<param name="mypass" type="text"  size="100" label="Owncloud password (same as your Galaxy password)" help="WARNING: password will appear in the clear in the text field.">
+			<validator type="empty_field" />
+		</param>		
+	</inputs>
+
+	
+
+	<help>
+This tool will export the selected dataset to your Owncloud directory. Users must provide a name for the file, and their Owncloud password.
+
+View your Owncloud directory here_.
+
+.. _here: /owncloud 
+
+Files will appear in your top-level Owncloud directory unless a path is specified.
+
+**NOTE** 
+For security reasons there will be no output dataset for this tool, but if all was correct, the file should appear in your Owncloud account. 
+If it does not, please make sure that you used the correct password, and that all directories on the filepath you provided exist.
+		
+**CAUTION**  
+This tool WILL override existing files, so choose your filename carefully!
+		
+	</help>
+</tool>

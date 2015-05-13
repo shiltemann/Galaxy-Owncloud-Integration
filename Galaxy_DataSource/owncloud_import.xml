@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!--
+    If the value of 'URL_method' is 'get', the request will consist of the value of 'URL' coming back in
+    the initial response.  If value of 'URL_method' is 'post', any additional params coming back in the
+    initial response ( in addition to 'URL' ) will be encoded and appended to URL and a post will be performed.
+-->
+<tool name="Owncloud import" id="owncloud_import" tool_type="data_source" version="1.0.0">
+    <description>import a file from owncloud (works best in Chrome)</description>
+    
+    <command interpreter="python">data_source.py $output $__app__.config.output_size_limit</command>
+    
+    <inputs action="http://bioinf-galaxian.erasmusmc.nl/owncloud" check_values="false" method="get">
+        <display>go to OwnCloud $GALAXY_URL</display>
+    </inputs>
+
+    <request_param_translation>
+        <request_param galaxy_name="URL_method" remote_name="URL_method" missing="get" />
+        <request_param galaxy_name="URL" remote_name="URL" missing="" />
+    </request_param_translation>
+    <uihints minwidth="800"/>
+    <outputs>
+        <data name="output"  format="auto" label="${table} (owncloud import)"/>
+    </outputs>
+    <options sanitize="False" refresh="True"/>
+</tool>

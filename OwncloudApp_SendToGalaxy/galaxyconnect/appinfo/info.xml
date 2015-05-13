@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<info>
+    <id>galaxyconnect</id>
+    <name>Galaxy Connector</name>
+    <description>Send data to Galaxy</description>
+    <licence>agpl</licence>
+    <author>Saskia</author>
+    <version>0.5</version>
+	<shipped>True</shipped>
+    <requiremin>7</requiremin>
+</info>
