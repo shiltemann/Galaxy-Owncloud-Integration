@@ -1,18 +1,21 @@
 <tool id="owncloud_send" name="Send file to owncloud" version="1.11">
 	<description>send dataset to your Owncloud account on this server</description> 
 
-	<command>
-		curl -X PUT "https://bioinf-galaxian.erasmusmc.nl/owncloud/remote.php/webdav/$filename" -u $__user_email__:$mypass --data-binary @"$inputfile" 
+	<command interpreter="bash">
+                #set $mypassb64 = str($mypass).encode('base64').replace('\n','')
+		owncloud_send.sh "$server/remote.php/webdav/$filename"  $__user_email__ $mypassb64 "$inputfile" 
 	</command>
 
 
 	<inputs>
 		<!-- file from history -->
+		<param name="server" type="text" label="Owncloud Server" size="100" value="https://bioinf-galaxian.erasmusmc.nl/owncloud"  help="Select owncloud server"/>
 		<param name="inputfile" type="data" label="Select input file" help="Choose file to send to Owncloud"/>
 		<param name="filename" type="text"   size="100" label="Filename (and optionally path) on Owncloud" help="Choose a name for the file. You can also specify a directory within your owncloud account: some/path/to/filename.txt (directories must exist)  CAUTION: tool will override existing files, so choose filename with care!" >
 			<validator type="empty_field" />
 		</param>
-		<param name="mypass" type="text"  size="100" label="Owncloud password (same as your Galaxy password)" help="WARNING: password will appear in the clear in the text field.">
+		<param name="myusername" type="text" label="Owncloud username" size="100" value=""  help="enter your owncloud username"/>
+		<param name="mypass" type="text"  size="100" label="Owncloud password (same as your Galaxy password)" help="WARNING: password will appear in the clear in this text field.">
 			<validator type="empty_field" />
 		</param>		
 	</inputs>
