@@ -3,7 +3,7 @@ $(document).ready(function() {
   var fileType = true;
   var token;
   var itemSource;
-  var GalaxyNames = ["Galaxian (Erasmus MC)"];
+  var GalaxyNames = ["Galaxian (Erasmus MC)", "CTMM TraIT Demo Galaxy", "Sandbox Galaxy"];
   var GalaxyAddresses = ["http://bioinf-galaxian.erasmusmc.nl/galaxy/tool_runner","http://galaxy-demo.ctmm-trait.nl/tool_runner","http://galaxy-sandbox.trait-ctmm.cloudlet.nl/tool_runner"];
 
   if (typeof FileActions !== 'undefined') {
@@ -18,7 +18,7 @@ $(document).ready(function() {
       directory = (directory === "/") ? directory : directory + "/";
 
       var filePath = directory + fileName;
-      var message = t('galaxyconnect', "This will send this file to a Galaxy server of your choice.<br>NOTE: the file will become shared via link. You may <br>unshare the file after transfer to Galaxy has completed. <br><br>Select Galaxy server:");
+      var message = t('galaxyconnect', "This will send this file to a Galaxy server of your choice.<br>NOTE: the file will become shared via link in owncloud. <br>You may unshare the file after transfer to Galaxy has completed. <br><br>Select Galaxy server:");
       var ext = fileName.substr(fileName.lastIndexOf('.') + 1);
 
       //Build dropdown
