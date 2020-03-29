@@ -2,8 +2,10 @@
 	<description>send dataset to your Owncloud account on this server</description> 
 
 	<command interpreter="bash">
-		#set $mypassb64 = str($mypass).encode('base64').replace('\n','')
-		owncloud_send.sh "$server/remote.php/dav/files/$urllib.quote_plus($email)/$urllib.quote_plus($filename)" "$myusername" "$mypassb64" "$inputfile"
+		#set $password_b64 = str($password).encode('base64').replace('\n','')
+		#set $username_b64 = str($username).replace("__at__", "@").encode('base64').replace('\n','')
+		#set $filename_b64 = str($filename).encode('base64').replace('\n','')
+		owncloud_send.sh "$server/remote.php/dav/files" "$username_b64" "$password_b64" "$inputfile" "$filename_b64"
 	</command>
 
 
@@ -14,8 +16,8 @@
 		<param name="filename" type="text"   size="100" label="Filename (and optionally path) on Owncloud" help="Choose a name for the file. You can also specify a directory within your owncloud account: some/path/to/filename.txt (directories must exist)  CAUTION: tool will override existing files, so choose filename with care!" >
 			<validator type="empty_field" />
 		</param>
-		<param name="myusername" type="text" label="Owncloud username" size="100" value=""  help="enter your owncloud username (your email)"/>
-		<param name="mypass" type="text"  size="100" label="Owncloud password" help="WARNING: password will appear in the clear in this text field.">
+		<param name="username" type="text" label="Owncloud username" size="100" value=""  help="enter your owncloud username (your email)"/>
+		<param name="password" type="text"  size="100" label="Owncloud password" help="WARNING: password will appear in the clear in this text field.">
 			<validator type="empty_field" />
 		</param>		
 	</inputs>
