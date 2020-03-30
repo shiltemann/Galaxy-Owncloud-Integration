@@ -2,9 +2,10 @@
 	<description>send dataset to your Owncloud account on this server</description> 
 
 	<command interpreter="bash">
-		#set $password_b64 = str($password).encode('base64').replace('\n','')
-		#set $username_b64 = str($username).replace("__at__", "@").encode('base64').replace('\n','')
-		#set $filename_b64 = str($filename).encode('base64').replace('\n','')
+		#import base64
+		#set $password_b64 = base64.b64encode($password.encode('utf-8')).decode('utf-8').replace('\n','')
+		#set $username_b64 = base64.b64encode($username.replace("__at__", "@").encode('utf-8')).decode('utf-8').replace('\n','')
+		#set $filename_b64 = base64.b64encode($filename.encode('utf-8')).decode('utf-8').replace('\n','')
 		owncloud_send.sh "$server/remote.php/dav/files" "$username_b64" "$password_b64" "$inputfile" "$filename_b64"
 	</command>
 
