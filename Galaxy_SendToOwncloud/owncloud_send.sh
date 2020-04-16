@@ -1,14 +1,25 @@
-# owncloud_send.sh "$server/remote.php/webdav/$filename"  $__user_email__ $mypassb64 "$inputfile"
-server_url=$1
-username_b64=$2
-password_b64=$3
-mydatafile=$4
-filename_b64=$5
+#!/bin/bash
+# owncloud_send.sh "$server/remote.php/webdav/$filename" "$inputfile" "$targetfile"
 
-username=$(echo $username_b64 | base64 --decode)
-password=$(echo $password_b64 | base64 --decode)
-filename=$(echo $filename_b64 | base64 --decode)
+if [ -z "$OWNCLOUD_SERVER_URL" ]; then
+    echo "$OWNCLOUD_SERVER_URL environment variable is not set"
+    exit 1
+fi
+if [ -z "$OWNCLOUD_PASSWORD" ]; then
+    echo "OWNCLOUD_USERNAME environment variable is not set"
+    exit 1
+fi
+if [ -z "$OWNCLOUD_PASSWORD" ]; then
+    echo "OWNCLOUD_PASSWORD environment variable is not set"
+    exit 1
+fi
 
-echo curl -X PUT $server_url/$username/$filename -u $username:$password --data-binary @"$mydatafile" > /tmp/owncloud.txt
+# Trim whitespace through xargs
+owncloud_url=`echo $OWNCLOUD_SERVER_URL | xargs`
+owncloud_username=`echo $OWNCLOUD_USERNAME | xargs`
+owncloud_password=`echo $OWNCLOUD_PASSWORD | xargs`
+input_datafile=$1
+owncloud_filename=$2
+
 # send file to owncloud
-curl -X PUT $server_url/$username/$filename -u $username:$password --data-binary @"$mydatafile"
+curl --silent --show-error --fail --retry 2 -X PUT $owncloud_url/$owncloud_username/$owncloud_filename -u $owncloud_username:$owncloud_password --data-binary @"$input_datafile"

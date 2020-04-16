@@ -1,0 +1,18 @@
+preferences:
+    owncloud_account:
+        description: OwnCloud/CloudStor Credentials
+        inputs:
+            - name: server_url
+              label: Server URL
+              type: select
+              required: False
+              options:
+                  - ["https://cloudstor.aarnet.edu.au/plus", "https://cloudstor.aarnet.edu.au/plus"]
+            - name: username
+              label: Username
+              type: text
+              required: False
+            - name: password
+              label: Password
+              type: password
+              required: False

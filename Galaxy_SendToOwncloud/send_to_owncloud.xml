@@ -1,45 +1,50 @@
-<tool id="owncloud_send" name="Send file to owncloud" version="1.11">
-	<description>send dataset to your Owncloud account on this server</description> 
+<tool id="owncloud_send" name="Send file to owncloud" version="2.0">
+	<description>send dataset to your Owncloud/CloudStor account on this server</description>
+
+	<environment_variables>
+			<environment_variable name="OWNCLOUD_SERVER_URL">
+					#set $server_url = $__user__.extra_preferences.get('owncloud_account|server_url', "")
+					#assert $server_url, Exception('Invalid server url. You must define your server url in your Galaxy user profile.')
+					$server_url/remote.php/dav/files
+			</environment_variable>
+			<environment_variable name="OWNCLOUD_USERNAME">
+					#set $username = $__user__.extra_preferences.get('owncloud_account|username', "")
+					#assert $username, Exception('Invalid username. You must define your username and password in your Galaxy user profile.')
+					$username
+			</environment_variable>
+		  <environment_variable name="OWNCLOUD_PASSWORD">
+					#set $password = $__user__.extra_preferences.get('owncloud_account|password', "")
+					#assert $password, Exception('Invalid password. You must define your username and password in your Galaxy user profile.')
+					$password
+			</environment_variable>
+	</environment_variables>
 
 	<command interpreter="bash">
-		#import base64
-		#set $password_b64 = base64.b64encode($password.encode('utf-8')).decode('utf-8').replace('\n','')
-		#set $username_b64 = base64.b64encode($username.replace("__at__", "@").encode('utf-8')).decode('utf-8').replace('\n','')
-		#set $filename_b64 = base64.b64encode($filename.encode('utf-8')).decode('utf-8').replace('\n','')
-		owncloud_send.sh "$server/remote.php/dav/files" "$username_b64" "$password_b64" "$inputfile" "$filename_b64"
+		#from six.moves.urllib.parse import quote
+		#set $filename = quote($filename)
+		owncloud_send.sh "$inputfile" "$filename"
 	</command>
 
 
 	<inputs>
 		<!-- file from history -->
-		<param name="server" type="text" label="Owncloud Server" size="100" value="https://cloudstor.aarnet.edu.au/plus"  help="Select owncloud server"/>
 		<param name="inputfile" type="data" label="Select input file" help="Choose file to send to Owncloud"/>
 		<param name="filename" type="text"   size="100" label="Filename (and optionally path) on Owncloud" help="Choose a name for the file. You can also specify a directory within your owncloud account: some/path/to/filename.txt (directories must exist)  CAUTION: tool will override existing files, so choose filename with care!" >
 			<validator type="empty_field" />
 		</param>
-		<param name="username" type="text" label="Owncloud username" size="100" value=""  help="enter your owncloud username (your email)"/>
-		<param name="password" type="text"  size="100" label="Owncloud password" help="WARNING: password will appear in the clear in this text field.">
-			<validator type="empty_field" />
-		</param>		
 	</inputs>
 
-	
+  <outputs>
+    <data format="auto" name="output_file1" />
+  </outputs>
 
 	<help>
-This tool will export the selected dataset to your Owncloud directory. Users must provide a name for the file, and their Owncloud password.
+This tool will export the selected dataset to your Owncloud/CloudStor directory. Users must provide a name for the file, and their Owncloud/CloudStor password.
 
-View your Owncloud directory here_.
+Files will appear in your top-level Owncloud/CloudStor directory unless a path is specified.
 
-.. _here: /owncloud 
-
-Files will appear in your top-level Owncloud directory unless a path is specified.
-
-**NOTE** 
-For security reasons there will be no output dataset for this tool, but if all was correct, the file should appear in your Owncloud account. 
-If it does not, please make sure that you used the correct password, and that all directories on the filepath you provided exist.
-		
 **CAUTION**  
 This tool WILL overwrite existing files, so choose your filename carefully!
-		
+
 	</help>
 </tool>
