@@ -7,7 +7,7 @@ preferences:
               type: select
               required: False
               options:
-                  - ["https://cloudstor.aarnet.edu.au/plus", "https://cloudstor.aarnet.edu.au/plus"]
+                  - ["https://cloudstor.aarnet.edu.au/plus/remote.php/webdav", "https://cloudstor.aarnet.edu.au/plus/remote.php/webdav"]
             - name: username
               label: Username
               type: text

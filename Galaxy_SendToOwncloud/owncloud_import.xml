@@ -1,5 +1,5 @@
-<tool id="owncloud_send" name="Send file to owncloud" version="2.0">
-	<description>send dataset to your Owncloud/CloudStor account on this server</description>
+<tool id="owncloud_import" name="Import from owncloud" version="2.0">
+	<description>import dataset from your Owncloud/CloudStor account</description>
 
 	<environment_variables>
 			<environment_variable name="OWNCLOUD_SERVER_URL">
@@ -22,31 +22,26 @@
 	<!-- Define a code file for obtaining drill down options -->
 	<code file="owncloud_helper.py" />
 
-	<command interpreter="bash">
-		## owncloud_send.sh "$inputfile" "$target_folder"
-		owncloud_send.sh "$inputfile" "$target_folder.value[0]['value'][0]"
+	<command interpreter="python">
+		#import json
+		owncloud_importer.py ${ " ".join($files_to_import.value[0]['value']) }
 	</command>
 
 
 	<inputs>
 		<!-- file from history -->
-		<param name="inputfile" type="data" label="Select input file" help="Choose file to send to Owncloud" />
-		<param name="target_folder" refresh_on_change="true" type="drill_down" display="radio" hierarchy="exact" multiple="true" label="Choose Target Directory" dynamic_options="get_owncloud_folders(trans=__trans__, target_folder=target_folder, list_dirs_only=True)" help="Select target folder to save files in.">
+		<param name="files_to_import" refresh_on_change="true" type="drill_down" display="checkbox" hierarchy="exact" multiple="true" label="Choose Files/Directories to Import" dynamic_options="get_owncloud_folders(trans=__trans__, target_folder=files_to_import)" help="Select files and directories to import from owncloud.">
 			<sanitizer sanitize="false" />
 		</param>
 	</inputs>
 
   <outputs>
-    <data format="auto" name="output_file1" />
+		<data format="auto" name="output_file1">
+      <discover_datasets pattern="__name_and_ext__" directory="." visible="true" assign_primary_output="true" recurse="true" />
+    </data>
   </outputs>
 
 	<help>
-This tool will export the selected dataset to your Owncloud/CloudStor directory. Users must provide a name for the file, and their Owncloud/CloudStor password.
-
-Files will appear in your top-level Owncloud/CloudStor directory unless a path is specified.
-
-**CAUTION**  
-This tool WILL overwrite existing files, so choose your filename carefully!
-
+This tool will import the selected datasets from your Owncloud/CloudStor directory into Galaxy.
 	</help>
 </tool>
