@@ -1,6 +1,7 @@
 import datetime
-import json
-import random
+import hashlib
+from base64 import b64encode
+
 import six
 
 from logging import getLogger
@@ -42,10 +43,19 @@ def recurse_folders(client, root, list_dirs_only=True):
     return content
 
 
+def hash_password(salt, password):
+    return six.text_type(b64encode(
+        hashlib.pbkdf2_hmac('sha256', six.text_type(password).encode(),
+                            six.text_type(salt).encode(), 10000)))
+
+
 def compute_hash_key(conn_settings, path, root, list_dirs_only=True, **kwargs):
+    # This is probably overkill since you would need to spill process memory to get
+    # to the password hash
+    pw_hash = hash_password(conn_settings['webdav_login'], conn_settings['webdav_password'])
     return cachetools.keys.hashkey(conn_settings['webdav_hostname'],
                                    conn_settings['webdav_login'],
-                                   conn_settings['webdav_password'],
+                                   pw_hash,
                                    path,
                                    root,
                                    list_dirs_only)
