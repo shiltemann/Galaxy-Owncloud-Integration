@@ -1,47 +1,53 @@
 <tool id="owncloud_import" name="Import from owncloud" version="2.0">
-	<description>import dataset from your Owncloud/CloudStor account</description>
+  <description>import dataset from your Owncloud/CloudStor account</description>
 
-	<environment_variables>
-			<environment_variable name="OWNCLOUD_SERVER_URL">
-					#set $server_url = $__user__.extra_preferences.get('owncloud_account|server_url', "")
-					#assert $server_url, Exception('Invalid server url. You must define your server url in your Galaxy user profile.')
-					$server_url
-			</environment_variable>
-			<environment_variable name="OWNCLOUD_USERNAME">
-					#set $username = $__user__.extra_preferences.get('owncloud_account|username', "")
-					#assert $username, Exception('Invalid username. You must define your username and password in your Galaxy user profile.')
-					$username
-			</environment_variable>
-		  <environment_variable name="OWNCLOUD_PASSWORD">
-					#set $password = $__user__.extra_preferences.get('owncloud_account|password', "")
-					#assert $password, Exception('Invalid password. You must define your username and password in your Galaxy user profile.')
-					$password
-			</environment_variable>
-	</environment_variables>
+  <environment_variables>
+    <environment_variable name="OWNCLOUD_SERVER_URL">
+      #set $server_url = $__user__.extra_preferences.get('owncloud_account|server_url', "")
+      #assert $server_url, Exception('Invalid server url. You must define your server url in your Galaxy user profile.')
+      $server_url
+    </environment_variable>
+    <environment_variable name="OWNCLOUD_USERNAME">
+      #set $username = $__user__.extra_preferences.get('owncloud_account|username', "")
+      #assert $username, Exception('Invalid username. You must define your username and password in your Galaxy user
+      profile.')
+      $username
+    </environment_variable>
+    <environment_variable name="OWNCLOUD_PASSWORD">
+      #set $password = $__user__.extra_preferences.get('owncloud_account|password', "")
+      #assert $password, Exception('Invalid password. You must define your username and password in your Galaxy user
+      profile.')
+      $password
+    </environment_variable>
+  </environment_variables>
 
-	<!-- Define a code file for obtaining drill down options -->
-	<code file="owncloud_helper.py" />
+  <!-- Define a code file for obtaining drill down options -->
+  <code file="owncloud_helper.py"/>
 
-	<command interpreter="python">
-		#import json
-		owncloud_importer.py ${ " ".join($files_to_import.value[0]['value']) }
-	</command>
+  <command interpreter="python">
+    #import json
+    owncloud_importer.py ${ " ".join($files_to_import.value[0]['value']) }
+  </command>
 
 
-	<inputs>
-		<!-- file from history -->
-		<param name="files_to_import" refresh_on_change="true" type="drill_down" display="checkbox" hierarchy="exact" multiple="true" label="Choose Files/Directories to Import" dynamic_options="get_owncloud_folders(trans=__trans__, target_folder=files_to_import)" help="Select files and directories to import from owncloud.">
-			<sanitizer sanitize="false" />
-		</param>
-	</inputs>
+  <inputs>
+    <!-- file from history -->
+    <param name="files_to_import" refresh_on_change="true" type="drill_down" display="checkbox" hierarchy="exact"
+           multiple="true" label="Choose Files/Directories to Import"
+           dynamic_options="get_owncloud_folders(trans=__trans__, target_folder=files_to_import)"
+           help="Select files and directories to import from owncloud.">
+      <sanitizer sanitize="false"/>
+    </param>
+  </inputs>
 
   <outputs>
-		<data format="auto" name="output_file1">
-      <discover_datasets pattern="__name_and_ext__" directory="." visible="true" assign_primary_output="true" recurse="true" />
+    <data format="auto" name="output_file1">
+      <discover_datasets pattern="__name_and_ext__" directory="." visible="true" assign_primary_output="true"
+                         recurse="true"/>
     </data>
   </outputs>
 
-	<help>
-This tool will import the selected datasets from your Owncloud/CloudStor directory into Galaxy.
-	</help>
+  <help>
+    This tool will import the selected datasets from your Owncloud/CloudStor directory into Galaxy.
+  </help>
 </tool>

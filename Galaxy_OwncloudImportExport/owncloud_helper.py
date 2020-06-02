@@ -50,8 +50,6 @@ def hash_password(salt, password):
 
 
 def compute_hash_key(conn_settings, path, root, list_dirs_only=True, **kwargs):
-    # This is probably overkill since you would need to spill process memory to get
-    # to the password hash
     pw_hash = hash_password(conn_settings['webdav_login'], conn_settings['webdav_password'])
     return cachetools.keys.hashkey(conn_settings['webdav_hostname'],
                                    conn_settings['webdav_login'],

@@ -1,52 +1,54 @@
 <tool id="owncloud_send" name="Send file to owncloud" version="2.0">
-	<description>send dataset to your Owncloud/CloudStor account on this server</description>
+  <description>send dataset to your Owncloud/CloudStor account on this server</description>
 
-	<environment_variables>
-			<environment_variable name="OWNCLOUD_SERVER_URL">
-					#set $server_url = $__user__.extra_preferences.get('owncloud_account|server_url', "")
-					#assert $server_url, Exception('Invalid server url. You must define your server url in your Galaxy user profile.')
-					$server_url
-			</environment_variable>
-			<environment_variable name="OWNCLOUD_USERNAME">
-					#set $username = $__user__.extra_preferences.get('owncloud_account|username', "")
-					#assert $username, Exception('Invalid username. You must define your username and password in your Galaxy user profile.')
-					$username
-			</environment_variable>
-		  <environment_variable name="OWNCLOUD_PASSWORD">
-					#set $password = $__user__.extra_preferences.get('owncloud_account|password', "")
-					#assert $password, Exception('Invalid password. You must define your username and password in your Galaxy user profile.')
-					$password
-			</environment_variable>
-	</environment_variables>
+  <environment_variables>
+    <environment_variable name="OWNCLOUD_SERVER_URL">
+      #set $server_url = $__user__.extra_preferences.get('owncloud_account|server_url', "")
+      #assert $server_url, Exception('Invalid server url. You must define your server url in your Galaxy user profile.')
+      $server_url
+    </environment_variable>
+    <environment_variable name="OWNCLOUD_USERNAME">
+      #set $username = $__user__.extra_preferences.get('owncloud_account|username', "")
+      #assert $username, Exception('Invalid username. You must define your username and password in your Galaxy user
+      profile.')
+      $username
+    </environment_variable>
+    <environment_variable name="OWNCLOUD_PASSWORD">
+      #set $password = $__user__.extra_preferences.get('owncloud_account|password', "")
+      #assert $password, Exception('Invalid password. You must define your username and password in your Galaxy user
+      profile.')
+      $password
+    </environment_variable>
+  </environment_variables>
 
-	<!-- Define a code file for obtaining drill down options -->
-	<code file="owncloud_helper.py" />
+  <!-- Define a code file for obtaining drill down options -->
+  <code file="owncloud_helper.py"/>
 
-	<command interpreter="bash">
-		## owncloud_send.sh "$inputfile" "$target_folder"
-		owncloud_send.sh "$inputfile" "$target_folder.value[0]['value'][0]"
-	</command>
+  <command interpreter="bash">
+    ## owncloud_send.sh "$inputfile" "$target_folder"
+    owncloud_send.sh "$inputfile" "$target_folder.value[0]['value'][0]"
+  </command>
 
 
-	<inputs>
-		<!-- file from history -->
-		<param name="inputfile" type="data" label="Select input file" help="Choose file to send to Owncloud" />
-		<param name="target_folder" refresh_on_change="true" type="drill_down" display="radio" hierarchy="exact" multiple="true" label="Choose Target Directory" dynamic_options="get_owncloud_folders(trans=__trans__, target_folder=target_folder, list_dirs_only=True)" help="Select target folder to save files in.">
-			<sanitizer sanitize="false" />
-		</param>
-	</inputs>
+  <inputs>
+    <!-- file from history -->
+    <param name="inputfile" type="data" label="Select input file" help="Choose file to send to Owncloud"/>
+    <param name="target_folder" refresh_on_change="true" type="drill_down" display="radio" hierarchy="exact"
+           multiple="true" label="Choose Target Directory"
+           dynamic_options="get_owncloud_folders(trans=__trans__, target_folder=target_folder, list_dirs_only=True)"
+           help="Select target folder to save files in.">
+      <sanitizer sanitize="false"/>
+    </param>
+  </inputs>
 
   <outputs>
-    <data format="auto" name="output_file1" />
+    <data format="auto" name="output_file1"/>
   </outputs>
 
-	<help>
-This tool will export the selected dataset to your Owncloud/CloudStor directory. Users must provide a name for the file, and their Owncloud/CloudStor password.
+  <help>
+    This tool will export the selected dataset to your Owncloud/CloudStor directory.
 
-Files will appear in your top-level Owncloud/CloudStor directory unless a path is specified.
-
-**CAUTION**  
-This tool WILL overwrite existing files, so choose your filename carefully!
-
-	</help>
+    **CAUTION**
+    This tool WILL overwrite existing files, so choose your target folder carefully!
+  </help>
 </tool>
