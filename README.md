@@ -1,10 +1,9 @@
 # Galaxy-Owncloud-Integration
 
-Galaxy-Owncloud integration consists of three parts:
+Galaxy-Owncloud integration consists of two parts:
 
 * Owncloud App - adds "send to Galaxy" action to files in owncloud.
-* Galaxy import tool - used by Owncloud app to tell Galaxy where to find its files
-* Galaxy export tool - tool to send Galaxy datasets to Owncloud
+* Galaxy import/export tool - tool to send Galaxy datasets to Owncloud or fetch them into Galaxy
 
 ### Owncloud App
 Adds "send to Galaxy" action to files in owncloud. Users may then select the Galaxy server they wish to send their file to from a dropdown menu.
@@ -12,18 +11,15 @@ Configure this list in the galaxyconnect.js file.
 
 TODO: add galaxy server from POST parameter to list of servers
 
-### Galaxy import tool
-Must be installed on the Galaxy server in order to enable the transfer of files from Owncloud to Galaxy.
+### Galaxy import/export tool
 
-### Galaxy export tool
-Send files from Galaxy back to Owncloud.  
-  
-The default owncloud server is hardcoded here, please adjust  
-The username for owncloud is assumed to be the same email address as used for galaxy registration  
+Must be installed on the Galaxy server in order to enable the transfer of files from Owncloud to Galaxy
+or to send files from Galaxy back to Owncloud.
 
-CAUTION: This tool requires users to enter their owncloud password as a tool parameter. This means it will appear (base64 encoded) in the Galaxy log files. 
-No output dataset is generated to avoid having the password also showing up in the users' history, but need to find better solution.. openID? Galaxy password type?
-
+Administrators will need to copy the sample `user_preferences_extra_conf.yml.sample` into Galaxy's config
+folder and modify `user_preferences_extra_conf_path` in `galaxy.yml` to point to it. This will add some
+extra fields to the Galaxy user profile so that users can select their Owncloud
+server, and specify their Owncloud username/password.
 
 Licence (MIT)
 =============
