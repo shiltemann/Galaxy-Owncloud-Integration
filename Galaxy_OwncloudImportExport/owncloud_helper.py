@@ -22,27 +22,6 @@ RETRIEVING_OPTIONS = [{'name': 'Retrieving...', 'value': '__RETRIEVING__', 'sele
 PATH_CONTENT_PER_USER_CACHE = cachetools.LRUCache(maxsize=128)
 
 
-def recurse_folders(client, root, list_dirs_only=True):
-    folders = []
-    files = []
-    content = []
-    remote_files = client.list(root)
-    # Remove first file because it's always the parent folder
-    for file in remote_files[1:]:
-        if Urn(file).is_dir():
-            try:
-               nested = recurse_folders(client, root + file, list_dirs_only=list_dirs_only)
-            except:
-               nested = []
-            folders.append({'name': file, 'value': root + file, 'options': nested, 'selected': False})
-        elif not list_dirs_only:
-            files.append({'name': file, 'value': root + file, 'options': [], 'selected': False})
-    # Folders and files are collected separately so folders can be listed first
-    content.extend(folders)
-    content.extend(files)
-    return content
-
-
 def hash_password(salt, password):
     return six.text_type(b64encode(
         hashlib.pbkdf2_hmac('sha256', six.text_type(password).encode(),
