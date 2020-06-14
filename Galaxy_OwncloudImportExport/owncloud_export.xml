@@ -1,4 +1,4 @@
-<tool id="owncloud_import" name="Import from Cloudstor" version="2.0">
+<tool id="owncloud_send" name="Send data to Cloudstor" version="2.0">
   <description>(AARNET)</description>
 
   <environment_variables>
@@ -22,38 +22,35 @@
   <!-- Define a code file for obtaining drill down options -->
   <code file="owncloud_helper.py"/>
 
-  <command interpreter="python">
-    #import json
+  <command interpreter="bash">
     #import urllib
-    owncloud_importer.py ${ " ".join('"{0}"'.format(f) for f in $files_to_import.value[0]['value']) }
+    #set $targetpath = urllib.quote($target_folder.value[0]['value'][0])
+    #set $filename = urllib.quote(".".join([$inputfile.name, $inputfile.ext]))
+    owncloud_send.sh "$inputfile" "$targetpath" "$filename"
   </command>
 
 
   <inputs>
     <!-- file from history -->
-    <param name="files_to_import" refresh_on_change="true" type="drill_down" display="checkbox" hierarchy="exact"
-           multiple="true" label="Choose Files/Directories to Import"
-           dynamic_options="get_owncloud_folders(trans=__trans__, target_folder=files_to_import)"
-           help="Select files and directories to import from owncloud.">
+    <param name="inputfile" type="data" label="Select input file" help="Choose file to send to Owncloud"/>
+    <param name="target_folder" refresh_on_change="true" type="drill_down" display="radio" hierarchy="exact"
+           multiple="true" label="Choose Target Directory"
+           dynamic_options="get_owncloud_folders(trans=__trans__, target_folder=target_folder, list_dirs_only=True)"
+           help="Select target folder to save files in.">
       <sanitizer sanitize="false"/>
     </param>
   </inputs>
 
   <outputs>
-    <data format="auto" name="output_file1">
-      <discover_datasets pattern="__name_and_ext__" directory="." visible="true" assign_primary_output="true"
-                         recurse="true"/>
-    </data>
+    <data format="auto" name="output_file1"/>
   </outputs>
 
   <help>
-    This tool allows you to import one or more  files or directories from a registered
-    `AARNET Cloudstor`_
-    account.
+    This tool allows you to export one or more files to a registered
+    `AARNET Cloudstor`_ account.
 
     Firstly you will need to configure access to the target Cloudstor account. Best practice is to setup
     an app specific password in Cloudstor for Galaxy to use. Click `here for instructions`_.
-
 
     Next, in Galaxy, go to your profile settings under the User menu -> Preferences -> Manage Information,
     where you will need to set OwnCloud/Cloudstor Credentials.
@@ -64,13 +61,15 @@
     2. Username: The email your account is registered with
     3. Password: Copied from the App password set up at Cloudstor
 
-    If the details above are configured properly, the next time you load this tool, the files and directories
-    in your CloudStor account will be displayed.  Select the files or directory you want to Import and press
-    Execute.
+    If the details above are configured properly, the next time you load this tool, the directories
+    in your CloudStor account will be displayed.  Select the file you want to export and the
+    directory you want to export to and press Execute.
 
     .. class:: warningmark
 
     **CAUTION**
+    This tool WILL overwrite existing files, so choose your target folder carefully!
+
     Your Cloudstor credentials will be stored on this server. While reasonable efforts
     have been made to store these credentials safely, you must be aware and accept the risks of storing
     these credentials. In the event that the server is compromised, it may be possible for an attacker to

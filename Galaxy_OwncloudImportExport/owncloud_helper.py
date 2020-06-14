@@ -3,6 +3,7 @@ import hashlib
 from base64 import b64encode
 
 import six
+from six.moves.urllib.parse import quote
 
 from logging import getLogger
 
@@ -16,7 +17,7 @@ log = getLogger(__name__)
 
 # Some basic Caching, so we don't have to download the entire
 # directory structure every time.
-CACHE_TIME = datetime.timedelta(seconds=30)
+CACHE_TIME = datetime.timedelta(seconds=0)
 OWNCLOUD_DIRECTORIES_BY_USER = {}
 RETRIEVING_OPTIONS = [{'name': 'Retrieving...', 'value': '__RETRIEVING__', 'selected': False, 'options': []}]
 PATH_CONTENT_PER_USER_CACHE = cachetools.LRUCache(maxsize=128)
@@ -82,9 +83,9 @@ def get_owncloud_folders(trans=None, value=None, target_folder=None, list_dirs_o
 
     folders = []
     if trans and trans.user:
-        server_url = trans.user.extra_preferences.get('owncloud_account|server_url', "")
-        username = trans.user.extra_preferences.get('owncloud_account|username', "")
-        password = trans.user.extra_preferences.get('owncloud_account|password', "")
+        server_url = trans.user.get_extra_preferences(trans.security).get('owncloud_account|server_url', "")
+        username = trans.user.get_extra_preferences(trans.security).get('owncloud_account|username', "")
+        password = trans.user.get_extra_preferences(trans.security).get('owncloud_account|password', "")
 
         try:
             folders = get_owncloud_folders_for_user(server_url, username, password,

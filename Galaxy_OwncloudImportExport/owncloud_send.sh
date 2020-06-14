@@ -19,9 +19,9 @@ owncloud_url=`echo $OWNCLOUD_SERVER_URL | xargs`
 owncloud_username=`echo $OWNCLOUD_USERNAME | xargs`
 owncloud_password=`echo $OWNCLOUD_PASSWORD | xargs`
 input_datafile=$1
-input_filename=`basename $input_datafile`
 owncloud_targetpath=$2
-owncloud_filename="$owncloud_targetpath$input_filename"
+owncloud_targetfile=$3
+owncloud_filename="$owncloud_targetpath$owncloud_targetfile"
 
 # send file to owncloud
-curl --silent --show-error --fail --retry 2 -X PUT $owncloud_url/$owncloud_filename -u $owncloud_username:$owncloud_password --data-binary @"$input_datafile"
+curl --silent --show-error --fail --retry 2 -X PUT "$owncloud_url/$owncloud_filename" -u "$owncloud_username:$owncloud_password" --data-binary @"$input_datafile"

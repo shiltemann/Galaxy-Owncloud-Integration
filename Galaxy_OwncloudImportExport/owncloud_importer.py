@@ -17,7 +17,8 @@ def import_from_owncloud(server_url, username, password, paths):
     options = {
         'webdav_hostname': server_url,
         'webdav_login': username,
-        'webdav_password': password
+        'webdav_password': password,
+        'disable_check': True
     }
     client = Client(options)
     for path in paths:

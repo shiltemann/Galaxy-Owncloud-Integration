@@ -13,6 +13,6 @@ preferences:
               type: text
               required: False
             - name: password
-              label: Password
+              label: App Password
               type: password
               required: False
