@@ -32,7 +32,7 @@
 
   <inputs>
     <!-- file from history -->
-    <param name="inputfile" type="data" label="Select input file" help="Choose file to send to Owncloud"/>
+    <param name="inputfile" type="data" label="Select input file" help="Choose file to send to CloudStor"/>
     <param name="target_folder" refresh_on_change="true" type="drill_down" display="radio" hierarchy="exact"
            multiple="true" label="Choose Target Directory"
            dynamic_options="get_owncloud_folders(trans=__trans__, target_folder=target_folder, list_dirs_only=True)"
@@ -47,7 +47,10 @@
 
   <help>
     This tool allows you to export one or more files to a registered
-    `AARNET Cloudstor`_ account.
+    `AARNET Cloudstor`_ account. |logo_image|
+
+    .. |logo_image| image::  https://upload.wikimedia.org/wikipedia/en/thumb/a/a9/AARNet_logo.svg/220px-AARNet_logo.svg.png
+       :width: 128px
 
     Firstly you will need to configure access to the target Cloudstor account. Best practice is to setup
     an app specific password in Cloudstor for Galaxy to use. Click `here for instructions`_.
@@ -62,7 +65,7 @@
     3. Password: Copied from the App password set up at Cloudstor
 
     If the details above are configured properly, the next time you load this tool, the directories
-    in your CloudStor account will be displayed.  Select the file you want to export and the
+    in your CloudStor account will be displayed. Select the file you want to export and the
     directory you want to export to and press Execute.
 
     .. class:: warningmark

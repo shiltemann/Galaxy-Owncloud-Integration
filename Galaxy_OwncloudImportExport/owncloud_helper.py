@@ -17,7 +17,7 @@ log = getLogger(__name__)
 
 # Some basic Caching, so we don't have to download the entire
 # directory structure every time.
-CACHE_TIME = datetime.timedelta(seconds=0)
+CACHE_TIME = datetime.timedelta(seconds=3)
 OWNCLOUD_DIRECTORIES_BY_USER = {}
 RETRIEVING_OPTIONS = [{'name': 'Retrieving...', 'value': '__RETRIEVING__', 'selected': False, 'options': []}]
 PATH_CONTENT_PER_USER_CACHE = cachetools.LRUCache(maxsize=128)
@@ -92,7 +92,8 @@ def get_owncloud_folders(trans=None, value=None, target_folder=None, list_dirs_o
                                                     path=root, list_dirs_only=list_dirs_only)
         except Exception as e:
             log.exception("Could not retrieve webdav folders: ", e)
+            folders = [
+                {'name': 'Your CloudStor username/password are incorrect or not defined', 'value': '', 'options': [],
+                 'selected': False}]
 
-    if not folders:
-        folders = [{'name': 'Your OwnCloud username/password are incorrect or not defined', 'value': '', 'options': [], 'selected': False}]
     return folders
