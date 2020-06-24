@@ -49,7 +49,7 @@
     This tool allows you to export one or more files to a registered
     `AARNET Cloudstor`_ account. |logo_image|
 
-    .. |logo_image| image::  https://upload.wikimedia.org/wikipedia/en/thumb/a/a9/AARNet_logo.svg/220px-AARNet_logo.svg.png
+    .. |logo_image| image::  https://raw.githubusercontent.com/usegalaxy-au/Galaxy-Owncloud-Integration/master/Galaxy_OwncloudImportExport/images/cloudstor_logo.png
        :width: 128px
 
     Firstly you will need to configure access to the target Cloudstor account. Best practice is to setup
