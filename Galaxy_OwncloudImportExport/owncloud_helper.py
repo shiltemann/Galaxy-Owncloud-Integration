@@ -93,7 +93,7 @@ def get_owncloud_folders(trans=None, value=None, target_folder=None, list_dirs_o
         except Exception as e:
             log.exception("Could not retrieve webdav folders: ", e)
             folders = [
-                {'name': 'Your CloudStor username/password are incorrect or not defined', 'value': '', 'options': [],
+                {'name': 'Your CloudStor username/password are incorrect or not defined. Follow the instructions below to define it.', 'value': '', 'options': [],
                  'selected': False}]
 
     return folders

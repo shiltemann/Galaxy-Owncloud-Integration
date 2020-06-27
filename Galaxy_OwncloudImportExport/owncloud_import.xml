@@ -48,23 +48,44 @@
 
   <help>
     This tool allows you to import one or more  files or directories from a registered
-    `AARNET Cloudstor`_ account. |logo_image|
+    `AARNET CloudStor`_ account. |logo_image|
 
     .. |logo_image| image::  https://raw.githubusercontent.com/usegalaxy-au/Galaxy-Owncloud-Integration/master/Galaxy_OwncloudImportExport/images/cloudstor_logo.png
        :width: 128px
 
-    Firstly you will need to configure access to the target Cloudstor account. Best practice is to setup
-    an app specific password in Cloudstor for Galaxy to use. Click `here for instructions`_.
+    Before you can use this tool, you must perform a one-off task where you must provide Galaxy with credentials to access
+    your CloudStor account on your behalf. You must first setup an app specific password in CloudStor for Galaxy to use.
+    You must then let Galaxy know what that app password is.
 
+    **Setting up an app password in CloudStor**
 
-    Next, in Galaxy, go to your profile settings under the User menu -> Preferences -> Manage Information,
-    where you will need to set OwnCloud/Cloudstor Credentials.
+    To create an App password:
+
+    Log into your account at https://cloudstor.aarnet.edu.au and then click on "Settings" in the top right corner of
+    the interface. Once in Settings you will see a menu on the left, click "Security" and you will see a section
+    called App passwords.
+
+    App passwords simply require an "app name" this can be anything that helps you later identify the password in the
+    future, for example "Galaxy". Fill in an "app name" and click "Create new app password". You will then be
+    presented with a username and password/token. Your username will most probably be your email address and the
+    password/token with be a randomly generated token. Please write this token down somewhere or copy it to your
+    computer clipboard. When you click "Done" you will never be able to see this password/token again.
+
+    Once the App password is created you will see it in the list of App passwords. You can also see when that password
+    was last used as well as delete the App password.
+
+    For the most up to date instructions, `follow this link`_.
+
+    **Letting Galaxy know your app password**
+
+    In Galaxy, go to your profile settings under the User menu -> Preferences -> Manage Information,
+    where you will need to set OwnCloud/CloudStor Credentials.
 
     .. image:: https://raw.githubusercontent.com/usegalaxy-au/Galaxy-Owncloud-Integration/master/Galaxy_OwncloudImportExport/images/galaxy_cloudstor_profile.png
 
     1. Server URL: https://cloudstor.aarnet.edu.au/plus/remote.php/webdav
     2. Username: The email your account is registered with
-    3. Password: Copied from the App password set up at Cloudstor
+    3. Password: Copied from the App password set up at CloudStor
 
     If the details above are configured properly, the next time you load this tool, the files and directories
     in your CloudStor account will be displayed. Select the files or directory you want to Import and press
@@ -72,13 +93,12 @@
 
     .. class:: warningmark
 
-    **CAUTION**
-    Your Cloudstor credentials will be stored on this server. While reasonable efforts
+    Your CloudStor credentials will be stored on this server. While reasonable efforts
     have been made to store these credentials safely, you must be aware and accept the risks of storing
     these credentials. In the event that the server is compromised, it may be possible for an attacker to
-    gain access to your Cloudstor account.
+    gain access to your CloudStor account.
 
-    .. _AARNET Cloudstor: https://www.aarnet.edu.au/network-and-services/cloud-services/cloudstor/
-    .. _here for instructions: https://support.aarnet.edu.au/hc/en-us/articles/236034707-How-do-I-manage-change-my-passwords-
+    .. _AARNET CloudStor: https://www.aarnet.edu.au/network-and-services/cloud-services/cloudstor/
+    .. _follow this link: https://support.aarnet.edu.au/hc/en-us/articles/236034707-How-do-I-manage-change-my-passwords-
   </help>
 </tool>
