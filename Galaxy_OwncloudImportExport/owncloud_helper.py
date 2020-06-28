@@ -66,12 +66,17 @@ def get_content_in_path(conn_settings, path, root, list_dirs_only=True):
     return content
 
 
-def get_owncloud_folders_for_user(server_url, username, password, path="", list_dirs_only=False):
-    conn_settings = {
+def build_connection_settings(server_url, username, password):
+    return {
         'webdav_hostname': server_url,
         'webdav_login': username,
-        'webdav_password': password
+        'webdav_password': password,
+        'webdav_disable_check': True,
+        'webdav_chunk_size': 65536
     }
+
+def get_owncloud_folders_for_user(server_url, username, password, path="", list_dirs_only=False):
+    conn_settings = build_connection_settings(server_url, username, password)
     return get_content_in_path(conn_settings, path, "", list_dirs_only=list_dirs_only)
 
 

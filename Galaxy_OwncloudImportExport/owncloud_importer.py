@@ -7,6 +7,8 @@ from logging import getLogger
 from webdav3.client import Client
 from webdav3.urn import Urn
 
+import owncloud_helper as helper
+
 log = getLogger(__name__)
 
 
@@ -14,12 +16,7 @@ def import_from_owncloud(server_url, username, password, paths):
     server_url = (server_url or os.environ.get('OWNCLOUD_SERVER_URL', '')).strip()
     username = (username or os.environ.get('OWNCLOUD_USERNAME', '')).strip()
     password = (password or os.environ.get('OWNCLOUD_PASSWORD')).strip()
-    options = {
-        'webdav_hostname': server_url,
-        'webdav_login': username,
-        'webdav_password': password,
-        'disable_check': True
-    }
+    options = helper.build_connection_settings(server_url, username, password)
     client = Client(options)
     for path in paths:
         urn = Urn(path)
