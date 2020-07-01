@@ -1,4 +1,4 @@
-<tool id="owncloud_import" name="Import from Cloudstor" version="2.0">
+<tool id="owncloud_import" name="Import from Cloudstor" tool_type="output_parameter_json" profile="17.09"  version="2.0">
   <description>(AARNET)</description>
 
   <environment_variables>
@@ -22,10 +22,10 @@
   <!-- Define a code file for obtaining drill down options -->
   <code file="owncloud_helper.py"/>
 
-  <command interpreter="python">
-    #import json
-    #import urllib
-    owncloud_importer.py ${ " ".join('"{0}"'.format(f) for f in $files_to_import.value[0]['value']) }
+  <command>
+    python $__tool_directory__/owncloud_importer.py
+    --metadata $output_file1
+    ${ " ".join('"{0}"'.format(f) for f in $files_to_import.value[0]['value']) }
   </command>
 
 
@@ -40,9 +40,8 @@
   </inputs>
 
   <outputs>
-    <data format="auto" name="output_file1">
-      <discover_datasets pattern="__name_and_ext__" directory="." visible="true" assign_primary_output="true"
-                         recurse="true"/>
+    <data name="output_file1">
+      <discover_datasets from_provided_metadata="true" visible="true" assign_primary_output="true" />
     </data>
   </outputs>
 
