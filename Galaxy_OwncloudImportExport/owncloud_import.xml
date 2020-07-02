@@ -40,8 +40,8 @@
   </inputs>
 
   <outputs>
-    <data name="output_file1" auto_format="true">
-      <discover_datasets from_provided_metadata="true" visible="true" assign_primary_output="true" />
+    <data name="output_file1" hidden="true">
+      <discover_datasets from_provided_metadata="true" visible="true" />
     </data>
   </outputs>
 

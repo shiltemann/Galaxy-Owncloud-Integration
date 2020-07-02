@@ -53,18 +53,11 @@ def sniff_and_handle_data_type(file_path, datatypes_registry):
 def get_metadata_entry(datatypes_registry, job_params, file_path, primary_dataset=False):
     ext = sniff_and_handle_data_type(file_path, datatypes_registry)
     dataset_id = job_params['output_data'][0]['dataset_id']
-    if primary_dataset:
-        return dict(type='dataset',
-                    name=os.path.basename(file_path),
-                    dataset_id=dataset_id,
-                    filename=file_path.lstrip("/"),
-                    ext=ext)
-    else:
-        return dict(type='new_primary_dataset',
-                    name=os.path.basename(file_path),
-                    base_dataset_id=dataset_id,
-                    filename=file_path.lstrip("/"),
-                    ext=ext)
+    return dict(type='new_primary_dataset',
+                name=os.path.basename(file_path),
+                base_dataset_id=dataset_id,
+                filename=file_path.lstrip("/"),
+                ext=ext)
 
 
 def write_metadata(metadata, paths):
