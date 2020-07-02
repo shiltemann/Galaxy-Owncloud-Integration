@@ -1,4 +1,4 @@
-<tool id="owncloud_import" name="Import from Cloudstor" tool_type="output_parameter_json" profile="17.09"  version="2.0">
+<tool id="owncloud_import" name="Import from Cloudstor" tool_type="output_parameter_json" profile="17.09" version="2.0">
   <description>(AARNET)</description>
 
   <environment_variables>

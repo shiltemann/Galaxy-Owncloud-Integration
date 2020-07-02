@@ -17,7 +17,7 @@ log = getLogger(__name__)
 
 # Some basic Caching, so we don't have to download the entire
 # directory structure every time.
-CACHE_TIME = datetime.timedelta(seconds=3)
+CACHE_TIME = datetime.timedelta(seconds=0)
 OWNCLOUD_DIRECTORIES_BY_USER = {}
 RETRIEVING_OPTIONS = [{'name': 'Retrieving...', 'value': '__RETRIEVING__', 'selected': False, 'options': []}]
 PATH_CONTENT_PER_USER_CACHE = cachetools.LRUCache(maxsize=128)
