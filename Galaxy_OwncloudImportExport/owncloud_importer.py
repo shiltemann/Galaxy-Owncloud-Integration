@@ -7,6 +7,7 @@ from logging import getLogger
 
 from galaxy.datatypes import sniff
 from galaxy.datatypes.registry import Registry
+from galaxy.util.checkers import check_binary
 
 from webdav3.client import Client
 from webdav3.urn import Urn
@@ -42,7 +43,11 @@ def sniff_and_handle_data_type(file_path, datatypes_registry):
     functions: it sniffs the filetype and if it's a compressed archive for
     a non compressed datatype such as fasta, it will be unpacked.
     """
-    return sniff.handle_uploaded_dataset_file(file_path, datatypes_registry)
+    ext = sniff.handle_uploaded_dataset_file(file_path, datatypes_registry)
+    if not ext or ext == "data":
+        is_binary = check_binary(file_path)
+        ext = sniff.guess_ext(file_path, datatypes_registry.sniff_order, is_binary=is_binary)
+    return ext;
 
 
 def get_metadata_entry(datatypes_registry, job_params, file_path, primary_dataset=False):
