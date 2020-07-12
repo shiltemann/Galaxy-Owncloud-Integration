@@ -1,5 +1,5 @@
-<tool id="owncloud_import" name="Import from Cloudstor" tool_type="output_parameter_json" profile="17.09" version="2.0">
-  <description>(AARNET)</description>
+<tool id="owncloud_import" name="Import from CloudStor" tool_type="output_parameter_json" profile="17.09" version="2.0">
+  <description>(AARNet)</description>
 
   <environment_variables>
     <environment_variable name="OWNCLOUD_SERVER_URL">
@@ -46,8 +46,10 @@
   </outputs>
 
   <help>
+    |logo_image|
+
     This tool allows you to import one or more  files or directories from a registered
-    `AARNET CloudStor`_ account. |logo_image|
+    `AARNet CloudStor`_ account.
 
     .. |logo_image| image::  https://raw.githubusercontent.com/usegalaxy-au/Galaxy-Owncloud-Integration/master/Galaxy_OwncloudImportExport/images/cloudstor_logo.png
        :width: 128px
@@ -58,11 +60,11 @@
 
     **Setting up an app password in CloudStor**
 
-    To create an App password:
+    To create an app password:
 
     Log into your account at https://cloudstor.aarnet.edu.au and then click on "Settings" in the top right corner of
     the interface. Once in Settings you will see a menu on the left, click "Security" and you will see a section
-    called App passwords.
+    called app passwords.
 
     App passwords simply require an "app name" this can be anything that helps you later identify the password in the
     future, for example "Galaxy". Fill in an "app name" and click "Create new app password". You will then be
@@ -70,8 +72,8 @@
     password/token with be a randomly generated token. Please write this token down somewhere or copy it to your
     computer clipboard. When you click "Done" you will never be able to see this password/token again.
 
-    Once the App password is created you will see it in the list of App passwords. You can also see when that password
-    was last used as well as delete the App password.
+    Once the app password is created you will see it in the list of app passwords. You can also see when that password
+    was last used as well as delete the app password.
 
     For the most up to date instructions, `follow this link`_.
 
@@ -84,7 +86,7 @@
 
     1. Server URL: https://cloudstor.aarnet.edu.au/plus/remote.php/webdav
     2. Username: The email your account is registered with
-    3. Password: Copied from the App password set up at CloudStor
+    3. Password: Copied from the app password set up at CloudStor
 
     If the details above are configured properly, the next time you load this tool, the files and directories
     in your CloudStor account will be displayed. Select the files or directory you want to Import and press
@@ -97,7 +99,7 @@
     these credentials. In the event that the server is compromised, it may be possible for an attacker to
     gain access to your CloudStor account.
 
-    .. _AARNET CloudStor: https://www.aarnet.edu.au/network-and-services/cloud-services/cloudstor/
+    .. _AARNet CloudStor: https://www.aarnet.edu.au/network-and-services/cloud-services/cloudstor/
     .. _follow this link: https://support.aarnet.edu.au/hc/en-us/articles/236034707-How-do-I-manage-change-my-passwords-
   </help>
 </tool>
