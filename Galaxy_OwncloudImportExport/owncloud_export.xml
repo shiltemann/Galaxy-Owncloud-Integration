@@ -23,9 +23,9 @@
   <code file="owncloud_helper.py"/>
 
   <command interpreter="bash">
-    #import urllib
-    #set $targetpath = urllib.quote($target_folder.value[0]['value'][0])
-    #set $filename = urllib.quote(".".join([$inputfile.name, $inputfile.ext]))
+    #from six.moves.urllib.parse import quote
+    #set $targetpath = quote($target_folder.value[0]['value'][0])
+    #set $filename = quote(".".join([$inputfile.name, $inputfile.ext]))
     owncloud_send.sh "$inputfile" "$targetpath" "$filename"
   </command>
 
