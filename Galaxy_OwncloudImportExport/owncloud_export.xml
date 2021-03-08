@@ -54,7 +54,7 @@
     This tool WILL overwrite existing files, so choose your target folder carefully!
 
     This tool allows you to export one or more files to a registered
-    `AARNet CloudStor`_ account.
+    `AARNet CloudStor`_ account. Transfers to/from CloudStor are encrypted over HTTPS.
 
     .. |logo_image| image::  https://raw.githubusercontent.com/usegalaxy-au/Galaxy-Owncloud-Integration/master/Galaxy_OwncloudImportExport/images/cloudstor_logo.png
        :width: 128px
