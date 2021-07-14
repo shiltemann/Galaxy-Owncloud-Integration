@@ -3,17 +3,17 @@
 
   <environment_variables>
     <environment_variable name="OWNCLOUD_SERVER_URL">
-      #set $server_url = $__user__.get_extra_preferences($__app__.security).get('owncloud_account|server_url', "")
+      #set $server_url = $__user__.extra_preferences.get('owncloud_account|server_url', "")
       #assert $server_url, Exception('Invalid server url. You must define your server url in your Galaxy user profile.')
       $server_url
     </environment_variable>
     <environment_variable name="OWNCLOUD_USERNAME">
-      #set $username = $__user__.get_extra_preferences($__app__.security).get('owncloud_account|username', "")
+      #set $username = $__user__.extra_preferences.get('owncloud_account|username', "")
       #assert $username, Exception('Invalid username. You must define your username in your Galaxy user profile.')
       $username
     </environment_variable>
     <environment_variable name="OWNCLOUD_PASSWORD">
-      #set $password = $__user__.get_extra_preferences($__app__.security).get('owncloud_account|password', "")
+      #set $password = $__user__.extra_preferences.get('owncloud_account|password', "")
       #assert $password, Exception('Invalid password. You must define your password in your Galaxy user profile.')
       $password
     </environment_variable>
