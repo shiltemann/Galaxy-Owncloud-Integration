@@ -88,9 +88,9 @@ def get_owncloud_folders(trans=None, value=None, target_folder=None, list_dirs_o
 
     folders = []
     if trans and trans.user:
-        server_url = trans.user.get_extra_preferences(trans.security).get('owncloud_account|server_url', "")
-        username = trans.user.get_extra_preferences(trans.security).get('owncloud_account|username', "")
-        password = trans.user.get_extra_preferences(trans.security).get('owncloud_account|password', "")
+        server_url = trans.user.extra_preferences.get('owncloud_account|server_url', "")
+        username = trans.user.extra_preferences.get('owncloud_account|username', "")
+        password = trans.user.extra_preferences.get('owncloud_account|password', "")
 
         try:
             folders = get_owncloud_folders_for_user(server_url, username, password,
